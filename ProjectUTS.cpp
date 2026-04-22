@@ -34,22 +34,37 @@ inline void tampilkanlagu (lagu *l, int jumlah){ // fungsi inline ini untuk mena
     }
 }
 
-void hapuslagu(lagu *l, int jumlah){ //fungsi ini untuk menghapus lagu
+void hapuslagu(lagu *l, int &jumlah){ //fungsi ini untuk menghapus lagu
     string dicari;
     cout << "Judul lagu = ";
     cin.ignore();
     getline(cin, dicari);
 
+    int index = -1;
+
     bool ditemukan = false;
 
-    for(int i = 0; i <jumlah; i++){
+    for(int i = 0; i < jumlah; i++){
         if(l[i].judul == dicari){ // bagian ini untuk mencari judul yg ingin di hapus
-            ditemukan = true;
+            index = i;
+            break;
+        }
+    }
+
+    //kalo ga nemu
+    if(index == -1) {
+        cout << "lagu tidak ditemukan" << endl;
+        return;
+    }
+
+    for(int i = index; i < jumlah - 1; i++){ // menapilkan jika judul tidak ditemukan
+        l[i] = l[i + 1]; 
 
     }
-if(!ditemukan){ // menapilkan jika judul tidak ditemukan
-    cout << "Lagu Tidak Ditemukan" << endl;
-};
-}
-}
+
+        jumlah--;
+        cout << "Lagu berhasil dihapus" << endl;
+
+    }
+
 
