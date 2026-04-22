@@ -31,6 +31,7 @@ inline void tampilkanlagu (lagu *l, int jumlah){ // fungsi inline ini untuk mena
     cout << "Genre lagu = " << l[i].genre << endl;
     cout << "Artis = " << l[i].artis << endl;
     cout << "Durasi lagu = " << l[i].durasi << endl;
+    cout << "nyoba push" << endl;
     }
 }
 
