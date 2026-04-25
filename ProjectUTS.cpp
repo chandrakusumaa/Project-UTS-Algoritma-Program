@@ -124,6 +124,13 @@ void hapusLagu() {
     }
 }
 
+void tampilkan(node* lagu){
+    cout << "Memutar Lagu\n";
+    cout << "Judul  : " << lagu->judul << endl;
+    cout << "Artis  : " << lagu->artis << endl;
+}
+
+namespace pemutaran{
 void playLagu() {
     if (head == NULL) { //jika list lagu kosong
         cout << "Tidak ada lagu!\n";
@@ -134,8 +141,40 @@ void playLagu() {
         current = head;
     }
 
-    cout << "Memutar Lagu\n";
-    cout << "Judul  : " << current->judul << endl;
-    cout << "Artis  : " << current->artis << endl;
+    tampilkan(current);
 
 }
+
+void playnext(){
+    if (head == NULL) { //jika list lagu kosong
+        cout << "Tidak ada lagu\n";
+        return;
+    }
+
+    if (current == NULL) { //jika tidak ada lagu yang sedang diputar
+        current = head;
+    }else{
+        current = current->next; //memutar lagu selanjutnya
+    }
+
+    tampilkan(current);
+
+}
+
+void playprev(){
+    if (head == NULL) { //jika list lagu kosong
+        cout << "Tidak ada lagu\n";
+        return;
+    }
+
+    if (current == NULL) { //jika tidak ada lagu yang sedang diputar
+        current = head;
+    }else{
+        current = current->prev;//memutar lagu sebelumnya
+    }
+
+    tampilkan(current);
+
+}
+}
+
