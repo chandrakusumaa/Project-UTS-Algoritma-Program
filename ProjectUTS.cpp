@@ -11,12 +11,19 @@ struct node { //membuat struktur node
     node* prev;
 };
 
+bool filterGenre (node *n, string genre) {
+    return n->genre == genre;
+}
+
+
+bool filterArtis (node *n, string artis) {
+    return n->artis == artis;
+}
+
 node* head = NULL;
 node* current = NULL;
 
-void inputlagu(int jumlah){
-    
-    cin.ignore();
+void inputlagu(int &jumlah){
 
     for (int i = 0; i < jumlah; i++) {
        
@@ -175,6 +182,8 @@ void playprev(){
 
     tampilkan(current);
 
+    }
 }
-}
+
+void filterSong ()
 
