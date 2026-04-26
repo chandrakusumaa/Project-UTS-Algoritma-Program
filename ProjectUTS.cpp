@@ -264,3 +264,86 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
 }
 }
 
+int main(){
+    int pilihan;
+ 
+    cout << "Pilihan Menu Playlist" << endl;
+    cout << "1. Input Data Lagu" << endl;
+    cout << "2. Hapus Data Lagu" << endl;
+    cout << "3. Tampilkan Playlist Lagu" << endl;
+    cout << "4. Play Lagu" << endl;
+    cout << "5. Play Next Lagu" << endl;
+    cout << "6. Play Previous Lagu" << endl;
+    cout << "7. Play by Index/Judul" << endl;
+    cout << "8. Tampilkan Filter Lagu" << endl;
+    cout << "9. Keluar/Selesai" << endl;
+    cout << "Pilihan = ";
+    cin >> pilihan;
+
+    do{
+    switch (pilihan){
+        case 1: {
+            int jumlah;
+            cout << "Jumlah lagu: ";
+            cin >> jumlah;
+            cin.ignore();
+            inputlagu(head, jumlah);
+            break;
+        }
+
+        case 2:
+            hapusLagu();
+            break;
+
+        case 3:
+            tampilkan();
+            break;
+
+        case 4:
+            pemutaran::playLagu();
+            break;
+
+        case 5:
+            pemutaran::playnext();
+            break;
+
+        case 6:
+            pemutaran::playprev();
+            break;
+
+        case 7:
+            pemutaran::playinput();
+            break;
+
+        case 8: {
+            int pilihFilter;
+            cout << "1. Genre\n2. Artis\nPilih filter: ";
+            cin >> pilihFilter;
+            cin.ignore();
+
+            string value;
+            cout << "Masukkan nilai: ";
+            getline(cin, value);
+
+            if (pilihFilter == 1)
+                filterlagu::filterSong(filterlagu::filterGenre, value);
+            else if (pilihFilter == 2)
+                filterlagu::filterSong(filterlagu::filterArtis, value);
+            else
+                cout << "Pilihan tidak valid\n";
+
+            break;
+        }
+
+        case 9:
+            cout << "Keluar program...\n";
+            break;
+
+        default:
+            cout << "Pilihan tidak valid\n";
+        }
+
+    }while (pilihan != 9);
+
+    return 0;
+}
