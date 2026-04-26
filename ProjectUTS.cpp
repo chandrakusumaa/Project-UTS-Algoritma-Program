@@ -181,51 +181,6 @@ void playprev(){
 
 }
 
-void play(node* head, node* current, int index) {
-    node* temp = head;
-    int i = 1;
-
-    do {
-        if (i == index) {
-            current = temp;
-            cout << "Memutar: " << temp->judul << endl;
-            return;
-        }
-        temp = temp->next;
-        i++;
-    } while (temp != head);
-
-    cout << "Index tidak valid\n";
-}
-
-void play(node* head, node* current, string judul) {
-    node* temp = head;
-
-    do {
-        if (temp->judul == judul) {
-            current = temp;
-            cout << "Memutar: " << temp->judul << endl;
-            return;
-        }
-        temp = temp->next;
-    } while (temp != head);
-
-    cout << "Lagu tidak ditemukan\n";
-}
-
-void playinput(){
-    string input;
-    cout << "Masukkan index / judul: ";
-    getline(cin, input);
-
-    if (isdigit(input[0])) {// cek apakah angka
-    int index = stoi(input);
-    play(head, current, index);
-    } else {
-    play(head, current, input);
-    }
-}
-
 }
 
 namespace filterlagu{
@@ -312,22 +267,22 @@ int main(){
             break;
 
         case 7:
-            pemutaran::playinput();
+            
             break;
 
         case 8: {
-            int pilihFilter;
+            int pilihan;
             cout << "1. Genre\n2. Artis\nPilih filter: ";
-            cin >> pilihFilter;
+            cin >> pilihan;
             cin.ignore();
 
             string value;
             cout << "Masukkan nilai: ";
             getline(cin, value);
 
-            if (pilihFilter == 1)
+            if (pilihan == 1)
                 filterlagu::filterSong(filterlagu::filterGenre, value);
-            else if (pilihFilter == 2)
+            else if (pilihan == 2)
                 filterlagu::filterSong(filterlagu::filterArtis, value);
             else
                 cout << "Pilihan tidak valid\n";
@@ -336,7 +291,7 @@ int main(){
         }
 
         case 9:
-            cout << "Keluar program...\n";
+            cout << "Keluar program.\n";
             break;
 
         default:
