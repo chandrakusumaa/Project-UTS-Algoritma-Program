@@ -180,6 +180,52 @@ void playprev(){
     tampilkan(current);
 
 }
+
+void play(node* head, node* current, int index) {
+    node* temp = head;
+    int i = 1;
+
+    do {
+        if (i == index) {
+            current = temp;
+            cout << "Memutar: " << temp->judul << endl;
+            return;
+        }
+        temp = temp->next;
+        i++;
+    } while (temp != head);
+
+    cout << "Index tidak valid\n";
+}
+
+void play(node* head, node* current, string judul) {
+    node* temp = head;
+
+    do {
+        if (temp->judul == judul) {
+            current = temp;
+            cout << "Memutar: " << temp->judul << endl;
+            return;
+        }
+        temp = temp->next;
+    } while (temp != head);
+
+    cout << "Lagu tidak ditemukan\n";
+}
+
+void playinput(){
+    string input;
+    cout << "Masukkan index / judul: ";
+    getline(cin, input);
+
+    if (isdigit(input[0])) {// cek apakah angka
+    int index = stoi(input);
+    play(head, current, index);
+    } else {
+    play(head, current, input);
+    }
+}
+
 }
 
 namespace filterlagu{
@@ -217,3 +263,4 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
     }
 }
 }
+
