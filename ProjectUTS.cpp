@@ -11,19 +11,26 @@ struct node { //membuat struktur node
     node* prev;
 };
 
-bool filterGenre (node *n, string genre) {
-    return n->genre == genre;
-}
-
-
-bool filterArtis (node *n, string artis) {
-    return n->artis == artis;
-}
-
 node* head = NULL;
 node* current = NULL;
 
-void inputlagu(int &jumlah){
+void insert(node*& head, node* baru) {
+    if (head == NULL) {
+        head = baru;
+        baru->next = baru;
+        baru->prev = baru;
+    } else {
+        node* tail = head->prev;
+
+        tail->next = baru;
+        baru->prev = tail;
+        baru->next = head;
+        head->prev = baru;
+    }
+}
+
+void inputlagu(node*& head, int jumlah){
+    cin.ignore();
 
     for (int i = 0; i < jumlah; i++) {
        
@@ -40,24 +47,13 @@ void inputlagu(int &jumlah){
         cin >> baru->durasi;
         cin.ignore();
 
-       if (head == NULL) { //jika data masih kosong
-            head = baru;
-            baru->next = baru;
-            baru->prev = baru;
-        } else { //jika sudah ada data
-            node* tail = head->prev;
-
-            tail->next = baru;
-            baru->prev = tail;
-            baru->next = head;
-            head->prev = baru;
-        }
+        insert(head,baru);
     }
 
     cout << "\nLagu berhasil ditambahkan!\n";
 
 }
-
+  
 void tampilkan() {
     if (head == NULL) { //apakah ada data lagu atau tidak
         cout << "Tidak ada lagu\n";
@@ -182,7 +178,17 @@ void playprev(){
 
     tampilkan(current);
 
-    }
+}
+}
+
+namespace filterlagu{
+bool filterGenre (node *n, string genre) {
+    return n->genre == genre;
+}
+
+
+bool filterArtis (node *n, string artis) {
+    return n->artis == artis;
 }
 
 void filterSong(bool (*kriteria)(node*, string), string value) {
@@ -208,4 +214,5 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
     if (!ditemukan) {
         cout << "Tidak ditemukan lagu\n";
     }
+}
 }
