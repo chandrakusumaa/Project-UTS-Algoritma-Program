@@ -183,26 +183,26 @@ void playprev(){
 
 }
 
-namespace filterlagu{
+namespace filterlagu{ 
 bool filterGenre (node *n, string genre) {
-    return n->genre == genre;
+    return n->genre == genre; //jika input genre
 }
 
 
 bool filterArtis (node *n, string artis) {
-    return n->artis == artis;
+    return n->artis == artis; //jika input judul
 }
 
 void filterSong(bool (*kriteria)(node*, string), string value) {
     if (head == NULL) {
-        cout << "Tidak ada lagu\n";
+        cout << "Tidak ada lagu\n"; //mengecek ada lagu atau tidak
         return;
     }
 
     node* temp = head;
     bool ditemukan = false;
 
-    do {
+    do { //looping pengecekan data
         if (kriteria(temp, value)) {
             cout << "\nJudul  : " << temp->judul << endl;
             cout << "Artis  : " << temp->artis << endl;
@@ -213,7 +213,7 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
         temp = temp->next;
     } while (temp != head);
 
-    if (!ditemukan) {
+    if (!ditemukan) { //jika tidak ada yang sesuai
         cout << "Tidak ditemukan lagu\n";
     }
 }
@@ -221,21 +221,21 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
 
 int main(){
     int pilihan;
- 
-    cout << "Pilihan Menu Playlist" << endl;
+
+    do{ // looping menu
+    cout << "Pilihan Menu Playlist" << endl; //pilihan menu
     cout << "1. Input Data Lagu" << endl;
     cout << "2. Hapus Data Lagu" << endl;
     cout << "3. Tampilkan Playlist Lagu" << endl;
     cout << "4. Play Lagu" << endl;
     cout << "5. Play Next Lagu" << endl;
     cout << "6. Play Previous Lagu" << endl;
-    cout << "7. Play by Index/Judul" << endl;
-    cout << "8. Tampilkan Filter Lagu" << endl;
-    cout << "9. Keluar/Selesai" << endl;
+    cout << "7. Tampilkan Filter Lagu" << endl;
+    cout << "8. Keluar/Selesai" << endl;
     cout << "Pilihan = ";
     cin >> pilihan;
 
-    do{
+     
     switch (pilihan){
         case 1: {
             int jumlah;
@@ -266,11 +266,7 @@ int main(){
             pemutaran::playprev();
             break;
 
-        case 7:
-            
-            break;
-
-        case 8: {
+        case 7: {
             int pilihan;
             cout << "1. Genre\n2. Artis\nPilih filter: ";
             cin >> pilihan;
@@ -290,7 +286,7 @@ int main(){
             break;
         }
 
-        case 9:
+        case 8:
             cout << "Keluar program.\n";
             break;
 
@@ -298,7 +294,7 @@ int main(){
             cout << "Pilihan tidak valid\n";
         }
 
-    }while (pilihan != 9);
+    }while (pilihan != 8);
 
     return 0;
 }
