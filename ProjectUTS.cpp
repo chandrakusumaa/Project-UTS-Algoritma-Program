@@ -185,5 +185,27 @@ void playprev(){
     }
 }
 
-void filterSong ()
+void filterSong(bool (*kriteria)(node*, string), string value) {
+    if (head == NULL) {
+        cout << "Tidak ada lagu\n";
+        return;
+    }
 
+    node* temp = head;
+    bool ditemukan = false;
+
+    do {
+        if (kriteria(temp, value)) {
+            cout << "\nJudul  : " << temp->judul << endl;
+            cout << "Artis  : " << temp->artis << endl;
+            cout << "Genre  : " << temp->genre << endl;
+            cout << "Durasi : " << temp->durasi << endl;
+            ditemukan = true;
+        }
+        temp = temp->next;
+    } while (temp != head);
+
+    if (!ditemukan) {
+        cout << "Tidak ditemukan lagu\n";
+    }
+}
