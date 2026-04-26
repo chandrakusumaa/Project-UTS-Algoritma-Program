@@ -11,16 +11,16 @@ struct node { //membuat struktur node
     node* prev;
 };
 
-node* head = NULL;
-node* current = NULL;
+node* head = NULL; // global node head
+node* current = NULL; // global node current
 
-void insert(node*& head, node* baru) {
-    if (head == NULL) {
+void insert(node*& head, node* baru) { // fungsi input data lagu yg baru
+    if (head == NULL) { // kalau list lagu kosong
         head = baru;
         baru->next = baru;
         baru->prev = baru;
     } else {
-        node* tail = head->prev;
+        node* tail = head->prev; // kalau list lagu terisi
 
         tail->next = baru;
         baru->prev = tail;
@@ -29,7 +29,7 @@ void insert(node*& head, node* baru) {
     }
 }
 
-void inputlagu(node*& head, int jumlah){
+void inputlagu(node*& head, int jumlah){ //fungsi input lagu
     cin.ignore();
 
     for (int i = 0; i < jumlah; i++) {
@@ -47,10 +47,10 @@ void inputlagu(node*& head, int jumlah){
         cin >> baru->durasi;
         cin.ignore();
 
-        insert(head,baru);
+        insert(head,baru);// memanggil fungsi insert
     }
 
-    cout << "\nLagu berhasil ditambahkan!\n";
+    cout << "\nLagu berhasil ditambahkan\n";
 
 }
   
@@ -73,7 +73,7 @@ void tampilkan() {
     
 }
 
-void hapusLagu() {
+void hapusLagu() { //fungsi hapus lagu
     if (head == NULL) {
         cout << "Tidak ada lagu\n";
         return;
@@ -88,8 +88,8 @@ void hapusLagu() {
     bool ditemukan = false;
 
     do {
-        if (temp->judul == dicari) {
-            ditemukan = true;
+        if (temp->judul == dicari) { //mengecek data lagu
+            ditemukan = true; // jika data lagu ditemukan
 
             // jika hanya 1 node
             if (temp->next == temp) {
@@ -127,13 +127,14 @@ void hapusLagu() {
     }
 }
 
+namespace pemutaran{
+
 void tampilkan(node* lagu){
     cout << "Memutar Lagu\n";
     cout << "Judul  : " << lagu->judul << endl;
     cout << "Artis  : " << lagu->artis << endl;
 }
 
-namespace pemutaran{
 void playLagu() {
     if (head == NULL) { //jika list lagu kosong
         cout << "Tidak ada lagu!\n";
