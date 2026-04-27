@@ -249,7 +249,6 @@ int main(){
             int jumlah;
             cout << "Jumlah lagu : ";
             cin >> jumlah;
-            cin.ignore();
             inputlagu(head, jumlah);
             break;
         }
