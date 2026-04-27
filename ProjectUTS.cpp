@@ -14,6 +14,17 @@ struct node { //membuat struktur node
 node* head = NULL; // global node head
 node* current = NULL; // global node current
 
+bool validasidata() {
+    if (head == NULL) {
+        cout << "Belum ada lagu\n";
+        return false;
+    }
+    if (current == NULL) {
+        current = head;
+    }
+    return true;
+}
+
 void insert(node*& head, node* baru) { // fungsi input data lagu yg baru
     if (head == NULL) { // kalau list lagu kosong
         head = baru;
@@ -29,12 +40,13 @@ void insert(node*& head, node* baru) { // fungsi input data lagu yg baru
     }
 }
 
-void inputlagu(node*& head, int jumlah){ //fungsi input lagu
+void inputlagu(node*& head, int jumlah = 4){ //fungsi input lagu
     for (int i = 0; i < jumlah; i++) {
        
         cout << "Data lagu ke-" << i+1 << endl;
         node* baru = new node; //membuat node baru
 
+        cin.ignore();
         cout << "Judul lagu : ";// memasukan data lagu
         getline(cin, baru->judul);
         cout << "Genre lagu : ";
@@ -53,10 +65,8 @@ void inputlagu(node*& head, int jumlah){ //fungsi input lagu
 }
   
 void tampilkan() {
-    if (head == NULL) { //apakah ada data lagu atau tidak
-        cout << "Belum ada lagu! \n";
-        return;
-    }
+    if (!validasidata()) return; //apakah ada data lagu atau tidak
+      
     node* temp = head; 
     int no = 1;
     do{ //pengulangan program untuk menampilkan seluruh data
@@ -74,10 +84,7 @@ void tampilkan() {
 }
 
 void hapusLagu() { //fungsi hapus lagu
-    if (head == NULL) {
-        cout << "Belum ada lagu! \n";
-        return;
-    }
+    if (!validasidata()) return;
 
     string dicari;
     cout << "Masukkan judul lagu : ";
@@ -136,46 +143,24 @@ void tampilkan(node* lagu){
 }
 
 void playLagu() {
-    if (head == NULL) { //jika list lagu kosong
-        cout << "Belum ada lagu! \n";
-        return;
-    }
-
-    if (current == NULL) { //jika tidak ada lagu yang sedang diputar
-        current = head;
-    }
+    if (!validasidata()) return;
 
     tampilkan(current);
-
 }
 
 void playnext(){
-    if (head == NULL) { //jika list lagu kosong
-        cout << "Belum ada lagu! \n";
-        return;
-    }
+    if (!validasidata()) return;
 
-    if (current == NULL) { //jika tidak ada lagu yang sedang diputar
-        current = head;
-    }else{
         current = current->next; //memutar lagu selanjutnya
-    }
 
     tampilkan(current);
 
 }
 
 void playprev(){
-    if (head == NULL) { //jika list lagu kosong
-        cout << "Belum ada lagu! \n";
-        return;
-    }
+    if (!validasidata()) return;
 
-    if (current == NULL) { //jika tidak ada lagu yang sedang diputar
-        current = head;
-    }else{
-        current = current->prev;//memutar lagu sebelumnya
-    }
+    current = current->prev;//memutar lagu sebelumnya
 
     tampilkan(current);
 
@@ -194,10 +179,7 @@ bool filterArtis (node *n, string artis) {
 }
 
 void filterSong(bool (*kriteria)(node*, string), string value) {
-    if (head == NULL) {
-        cout << "Belum ada lagu! \n"; //mengecek ada lagu atau tidak
-        return;
-    }
+    if (!validasidata()) return;
 
     node* temp = head;
     bool ditemukan = false;
