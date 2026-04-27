@@ -30,8 +30,6 @@ void insert(node*& head, node* baru) { // fungsi input data lagu yg baru
 }
 
 void inputlagu(node*& head, int jumlah){ //fungsi input lagu
-    cin.ignore();
-
     for (int i = 0; i < jumlah; i++) {
        
         cout << "Data lagu ke-" << i+1 << endl;
@@ -49,24 +47,26 @@ void inputlagu(node*& head, int jumlah){ //fungsi input lagu
 
         insert(head,baru);// memanggil fungsi insert
     }
-
-    cout << "\nLagu berhasil ditambahkan\n";
-
+    cout << "=============\n"; 
+    cout << "Lagu berhasil ditambahkan\n";
+    cout << "=============\n";
 }
   
 void tampilkan() {
     if (head == NULL) { //apakah ada data lagu atau tidak
-        cout << "Tidak ada lagu\n";
+        cout << "Belum ada lagu! \n";
         return;
     }
     node* temp = head; 
     int no = 1;
     do{ //pengulangan program untuk menampilkan seluruh data
-        cout << "Lagu Ke-:\n" << no++;
-        cout << "Judul  : " << temp->judul << endl;
+        cout << "===================" << endl;
+        cout << "Lagu Ke-:" << no++ << endl;
+        cout << "Judul  : " << temp->judul << endl; 
         cout << "Artis  : " << temp->artis << endl;
         cout << "Genre  : " << temp->genre << endl;
         cout << "Durasi : " << temp->durasi << endl;
+        cout << "===================" << endl;
         temp = temp->next;
 
     }while(temp != head);
@@ -75,12 +75,12 @@ void tampilkan() {
 
 void hapusLagu() { //fungsi hapus lagu
     if (head == NULL) {
-        cout << "Tidak ada lagu\n";
+        cout << "Belum ada lagu! \n";
         return;
     }
 
     string dicari;
-    cout << "Masukkan judul lagu: ";
+    cout << "Masukkan judul lagu : ";
     cin.ignore();
     getline(cin, dicari);
 
@@ -113,7 +113,7 @@ void hapusLagu() { //fungsi hapus lagu
             }
 
             delete temp;
-            cout << "Lagu berhasil dihapus\n";
+            cout << "Lagu berhasil dihapus \n";
             return;
         }
 
@@ -123,21 +123,21 @@ void hapusLagu() { //fungsi hapus lagu
 
     // jika tidak ditemukan
     if (!ditemukan) {
-        cout << "Lagu tidak ditemukan\n";
+        cout << "Lagu tidak ditemukan \n";
     }
 }
 
 namespace pemutaran{
 
 void tampilkan(node* lagu){
-    cout << "Memutar Lagu\n";
+    cout << "Memutar Lagu :)\n";
     cout << "Judul  : " << lagu->judul << endl;
     cout << "Artis  : " << lagu->artis << endl;
 }
 
 void playLagu() {
     if (head == NULL) { //jika list lagu kosong
-        cout << "Tidak ada lagu!\n";
+        cout << "Belum ada lagu! \n";
         return;
     }
 
@@ -151,7 +151,7 @@ void playLagu() {
 
 void playnext(){
     if (head == NULL) { //jika list lagu kosong
-        cout << "Tidak ada lagu\n";
+        cout << "Belum ada lagu! \n";
         return;
     }
 
@@ -167,7 +167,7 @@ void playnext(){
 
 void playprev(){
     if (head == NULL) { //jika list lagu kosong
-        cout << "Tidak ada lagu\n";
+        cout << "Belum ada lagu! \n";
         return;
     }
 
@@ -195,7 +195,7 @@ bool filterArtis (node *n, string artis) {
 
 void filterSong(bool (*kriteria)(node*, string), string value) {
     if (head == NULL) {
-        cout << "Tidak ada lagu\n"; //mengecek ada lagu atau tidak
+        cout << "Belum ada lagu! \n"; //mengecek ada lagu atau tidak
         return;
     }
 
@@ -204,10 +204,12 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
 
     do { //looping pengecekan data
         if (kriteria(temp, value)) {
-            cout << "\nJudul  : " << temp->judul << endl;
+            cout << "\n==================" << endl;
+            cout << "Judul  : " << temp->judul << endl;
             cout << "Artis  : " << temp->artis << endl;
             cout << "Genre  : " << temp->genre << endl;
             cout << "Durasi : " << temp->durasi << endl;
+            cout << "==================" << endl;
             ditemukan = true;
         }
         temp = temp->next;
@@ -223,6 +225,7 @@ int main(){
     int pilihan;
 
     do{ // looping menu
+    cout << "\n===SPOTIFIK===" << endl;
     cout << "Pilihan Menu Playlist" << endl; //pilihan menu
     cout << "1. Input Data Lagu" << endl;
     cout << "2. Hapus Data Lagu" << endl;
@@ -239,7 +242,7 @@ int main(){
     switch (pilihan){
         case 1: {
             int jumlah;
-            cout << "Jumlah lagu: ";
+            cout << "Jumlah lagu : ";
             cin >> jumlah;
             cin.ignore();
             inputlagu(head, jumlah);
@@ -267,21 +270,26 @@ int main(){
             break;
 
         case 7: {
-            int pilihan;
+            int pilihanFilter;
             cout << "1. Genre\n2. Artis\nPilih filter: ";
-            cin >> pilihan;
+            cin >> pilihanFilter;
             cin.ignore();
 
             string value;
-            cout << "Masukkan nilai: ";
-            getline(cin, value);
 
-            if (pilihan == 1)
+            if (pilihanFilter == 1) {
+                cout << "Masukkan Genre: ";
+                getline(cin, value);
                 filterlagu::filterSong(filterlagu::filterGenre, value);
-            else if (pilihan == 2)
+
+            } else if (pilihanFilter == 2) {
+                cout << "Masukkan Artis : ";
+                getline(cin, value);
                 filterlagu::filterSong(filterlagu::filterArtis, value);
-            else
-                cout << "Pilihan tidak valid\n";
+
+            } else {
+                cout << "Pilihan tidak Valid!" << endl;
+            }
 
             break;
         }
