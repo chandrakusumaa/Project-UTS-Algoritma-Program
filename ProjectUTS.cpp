@@ -63,7 +63,7 @@ void inputlagu(node*& head, int jumlah = 4){ //fungsi input lagu
     cout << "Lagu berhasil ditambahkan\n";
     cout << "=============\n";
 }
-  
+namespace tampilan{
 void tampilkan() {
     if (!validasidata()) return; //apakah ada data lagu atau tidak
       
@@ -83,6 +83,30 @@ void tampilkan() {
     
 }
 
+void tampilkan(int index){
+    if (!validasidata()) return;
+
+    node* temp = head;
+    int i = 0;
+
+    do {
+        if (i == index) {
+            cout << "===================" << endl;
+            cout << "Judul  : " << temp->judul << endl;
+            cout << "Artis  : " << temp->artis << endl;
+            cout << "Genre  : " << temp->genre << endl;
+            cout << "Durasi : " << temp->durasi << endl;
+            cout << "===================" << endl;
+            return;
+        }
+        temp = temp->next;
+        i++;
+    } while (temp != head);
+
+    cout << "Index tidak ditemukan\n";
+}
+
+}
 void hapusLagu() { //fungsi hapus lagu
     if (!validasidata()) return;
 
@@ -235,9 +259,31 @@ int main(){
             hapusLagu();
             break;
 
-        case 3:
-            tampilkan();
+        case 3: {
+            cin.ignore();
+            string input;
+            cout << "Masukkan index atau judul: ";
+            getline(cin, input);
+         
+            bool isNumber = !input.empty();
+
+            for(char c : input){
+                if(!isdigit(c)){
+                    isNumber = false;
+                    break;
+                }
+            }
+
+            if (isNumber) {
+                int idx = stoi(input);
+                tampilan::tampilkan(idx);
+            } else {
+                tampilan::tampilkan();
+            }
+
             break;
+        }
+
 
         case 4:
             pemutaran::playLagu();
@@ -287,4 +333,5 @@ int main(){
     }while (pilihan != 8);
 
     return 0;
+
 }
