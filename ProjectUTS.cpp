@@ -46,7 +46,6 @@ void inputlagu(node*& head, int jumlah = 4){ //fungsi input lagu
         cout << "Data lagu ke-" << i+1 << endl;
         node* baru = new node; //membuat node baru
 
-        cin.ignore();
         cout << "Judul lagu : ";// memasukan data lagu
         getline(cin, baru->judul);
         cout << "Genre lagu : ";
@@ -235,7 +234,7 @@ int main(){
     cout << "Pilihan Menu Playlist" << endl; //pilihan menu
     cout << "1. Input Data Lagu" << endl;
     cout << "2. Hapus Data Lagu" << endl;
-    cout << "3. Tampilkan Playlist Lagu" << endl;
+    cout << "3. Lihat Lagu" << endl;
     cout << "4. Play Lagu" << endl;
     cout << "5. Play Next Lagu" << endl;
     cout << "6. Play Previous Lagu" << endl;
@@ -262,7 +261,7 @@ int main(){
         case 3: {
             cin.ignore();
             string input;
-            cout << "Masukkan index atau judul: ";
+            cout << "cari lagu (masukkan index/judul) /tampilkan playlist (enter) : ";
             getline(cin, input);
          
             bool isNumber = !input.empty();
