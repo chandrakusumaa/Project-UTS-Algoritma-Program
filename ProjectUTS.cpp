@@ -261,7 +261,7 @@ int main(){
         case 3: {
             cin.ignore();
             string input;
-            cout << "cari lagu (masukkan index/judul) /tampilkan playlist (enter) : ";
+            cout << "cari lagu (masukkan index) /tampilkan playlist (enter) : ";
             getline(cin, input);
          
             bool isNumber = !input.empty();
