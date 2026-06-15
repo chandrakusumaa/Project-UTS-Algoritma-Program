@@ -28,6 +28,7 @@ bool validasidata() {
 void insert(node*& head, node* baru) { // fungsi input data lagu yg baru
     if (head == NULL) { // kalau list lagu kosong
         head = baru;
+        current = head;
         baru->next = baru;
         baru->prev = baru;
     } else {
@@ -46,6 +47,7 @@ void inputlagu(node*& head, int jumlah = 4){ //fungsi input lagu
         cout << "Data lagu ke-" << i+1 << endl;
         node* baru = new node; //membuat node baru
 
+        cin.ignore();
         cout << "Judul lagu : ";// memasukan data lagu
         getline(cin, baru->judul);
         cout << "Genre lagu : ";
@@ -54,7 +56,7 @@ void inputlagu(node*& head, int jumlah = 4){ //fungsi input lagu
         getline(cin, baru->artis);
         cout << "Durasi lagu : ";
         cin >> baru->durasi;
-        cin.ignore();
+        
 
         insert(head,baru);// memanggil fungsi insert
     }
@@ -62,6 +64,7 @@ void inputlagu(node*& head, int jumlah = 4){ //fungsi input lagu
     cout << "Lagu berhasil ditambahkan\n";
     cout << "=============\n";
 }
+
 namespace tampilan{
 void tampilkan() {
     if (!validasidata()) return; //apakah ada data lagu atau tidak
@@ -86,7 +89,7 @@ void tampilkan(int index){
     if (!validasidata()) return;
 
     node* temp = head;
-    int i = 0;
+    int i = 1;
 
     do {
         if (i == index) {
@@ -98,14 +101,17 @@ void tampilkan(int index){
             cout << "===================" << endl;
             return;
         }
+
         temp = temp->next;
         i++;
+        
     } while (temp != head);
 
     cout << "Index tidak ditemukan\n";
 }
 
 }
+
 void hapusLagu() { //fungsi hapus lagu
     if (!validasidata()) return;
 
@@ -196,7 +202,6 @@ bool filterGenre (node *n, string genre) {
     return n->genre == genre; //jika input genre
 }
 
-
 bool filterArtis (node *n, string artis) {
     return n->artis == artis; //jika input judul
 }
@@ -224,6 +229,23 @@ void filterSong(bool (*kriteria)(node*, string), string value) {
         cout << "Tidak ditemukan lagu\n";
     }
 }
+}
+
+void clear() {
+    if (head == NULL) return;
+
+    node* temp = head->next;
+
+    while (temp != head) {
+        node* nextNode = temp->next;
+        delete temp;
+        temp = nextNode;
+    }
+
+    delete head;
+
+    head = NULL;
+    current = NULL;
 }
 
 int main(){
@@ -260,19 +282,19 @@ int main(){
         case 3: {
             cin.ignore();
             string input;
-            cout << "cari lagu (masukkan index) /tampilkan playlist (enter) : ";
+            cout << "cari lagu (masukkan index) / tampilkan playlist (enter) : ";
             getline(cin, input);
          
-            bool isNumber = !input.empty();
+            bool angka = !input.empty();
 
             for(char c : input){
                 if(!isdigit(c)){
-                    isNumber = false;
+                    angka = false;
                     break;
                 }
             }
 
-            if (isNumber) {
+            if (angka) {
                 int idx = stoi(input);
                 tampilan::tampilkan(idx);
             } else {
@@ -329,6 +351,8 @@ int main(){
         }
 
     }while (pilihan != 8);
+    
+    clear();
 
     return 0;
 
